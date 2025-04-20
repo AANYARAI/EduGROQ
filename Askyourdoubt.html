@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ask Your Doubt – GROQ AI Tutor</title>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
+
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      --glass-bg: rgba(0, 0, 0, 0.5);
+      --accent: #00f7ff;
+      --text-light: #fff;
+      --text-dark: #222;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-light);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    header {
+      width: 100%; max-width: 1200px;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--accent);
+    }
+    header h1 {
+      font-size: 1.8rem;
+      color: var(--accent);
+    }
+    .btn {
+      padding: 8px 16px;
+      background: var(--accent);
+      color: var(--text-dark);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-size: 1rem;
+    }
+    .btn:hover { background: #00c0ff; }
+    main {
+      display: flex;
+      flex: 1;
+      width: 100%; max-width: 1200px;
+      overflow: hidden;
+    }
+    .ask-panel {
+      flex: 2;
+      margin: 20px;
+      padding: 30px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      display: flex; flex-direction: column;
+    }
+    .ask-panel input[type=file], .ask-panel input[type=text] {
+      margin-bottom: 15px;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      background: rgba(255,255,255,0.1);
+      color: var(--text-light);
+    }
+    .ask-panel .actions {
+      display: flex; gap: 10px; margin-bottom: 20px;
+    }
+    .ask-panel .actions button {
+      flex: 1;
+      font-size: 1rem;
+    }
+    .response {
+      flex: 1;
+      background: rgba(0,255,255,0.1);
+      margin-top: 10px;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-y: auto;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    .history-panel {
+      position: fixed;
+      top: 20px; right: 20px;
+      width: 300px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      padding: 20px;
+      max-height: 60vh;
+      overflow-y: auto;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+    .history-panel.active { transform: translateX(0); }
+    .history-panel h2 {
+      color: var(--accent);
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+    .history-item {
+      margin-bottom: 12px;
+      padding: 10px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+    .toggle-history-btn {
+      position: absolute;
+      top: 50%; left: -40px;
+      transform: translateY(-50%);
+      background: var(--accent);
+      border: none;
+      color: var(--text-dark);
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--accent);
+      transition: transform 0.3s;
+    }
+    .toggle-history-btn:hover { transform: translateY(-50%) scale(1.1); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>GROQ AI Tutor</h1>
+    <div style="display: flex; gap: 10px;">
+      <button class="btn" onclick="window.location.href='Features.html'">Back to Feature</button>
+      <button class="btn" onclick="toggleHistory()">📜 History</button>
+    </div>
+      </header>
+
+  <main>
+    <div class="ask-panel">
+      <input type="file" id="fileInput" accept="image/*" />
+      <input type="text" id="questionInput" placeholder="Type your question…" />
+      <div class="actions">
+        <!-- <button id="voiceBtn" class="btn">🎤 Voice</button> -->
+        <button id="askBtn" class="btn">Ask AI</button>
+      </div>
+      <div id="response" class="response">Your AI answer will appear here.</div>
+    </div>
+  </main>
+
+  <!-- History Panel -->
+  <div class="history-panel" id="historyPanel">
+    <button class="toggle-history-btn" id="historyToggle">▶</button>
+    <h2>History</h2>
+    <div id="historyContent"></div>
+  </div>
+
+  <script>
+    const API_KEY = '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';
+    const API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+    const historyPanel = document.getElementById('historyPanel');
+    const toggleBtn = document.getElementById('historyToggle');
+    let historyData = JSON.parse(localStorage.getItem('qaHistory') || '[]');
+
+    function renderHistory() {
+      const container = document.getElementById('historyContent');
+      container.innerHTML = '';
+      historyData.forEach(({ q, a }) => {
+        const div = document.createElement('div');
+        div.className = 'history-item';
+        div.innerHTML = `<strong>Q:</strong> ${q}<br><strong>A:</strong> ${a}`;
+        container.appendChild(div);
+      });
+    }
+
+    function saveHistory(q, a) {
+      historyData.unshift({ q, a });
+      historyData = historyData.slice(0, 20);
+      localStorage.setItem('qaHistory', JSON.stringify(historyData));
+      renderHistory();
+    }
+
+    async function ocrImage(file) {
+      const { data: { text } } = await Tesseract.recognize(file);
+      return text.trim();
+    }
+
+    async function askAI(prompt) {
+      const out = document.getElementById('response');
+      out.textContent = '🤖 Thinking…';
+      try {
+        const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${'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'}`
+          },
+          body: JSON.stringify({
+            model: 'llama-3.1-8b-instant',
+            messages: [
+              { role: 'system', content: 'You are a helpful tutor.' },
+              { role: 'user', content: prompt }
+            ]
+          })
+        });
+        const data = await res.json();
+        const answer = data.choices?.[0]?.message?.content || 'No answer';
+        out.textContent = answer;
+        saveHistory(prompt, answer);
+      } catch (e) {
+        out.textContent = 'Error: ' + e.message;
+      }
+    }
+
+    document.getElementById('askBtn').onclick = async () => {
+      const fileEl = document.getElementById('fileInput');
+      const qText = document.getElementById('questionInput').value.trim();
+      let prompt = qText;
+      if (fileEl.files[0]) {
+        try {
+          const extracted = await ocrImage(fileEl.files[0]);
+          prompt = extracted ? `Extracted: "${extracted}"\n\n${qText}` : qText;
+        } catch (err) {
+          document.getElementById('response').textContent = 'OCR error: ' + err.message;
+          return;
+        }
+      }
+      if (!prompt) {
+        document.getElementById('response').textContent = 'Please enter or upload something.';
+        return;
+      }
+      askAI(prompt);
+    };
+
+    function toggleHistory() {
+  historyPanel.classList.toggle('active');
+}
+toggleBtn.onclick = toggleHistory;
+
+    renderHistory();
+  </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Q&A Chatbox</title>
+    <link rel="stylesheet" href="chatbot.css">
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> <!-- Font Awesome -->
+</head>
+<body>
+
+    <div class="glow-layer"></div>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">GROQ</div>
+            <div class="user-profile">
+                <img src="" alt="User Avatar">
+                <div class="user-info">
+                    <h4>User</h4>
+                    <p>@user-profile</p>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li id="newQuestionBtn" class="active">New Chat</li>
+                    <li id="homeBtn">Home</li>
+                    <li onclick="toggleHistory()">History</li>
+
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms and Conditions</a>
+            </div>
+            
+            
+        </aside>
+
+        <main class="content centered-content">
+            <div class="center-box">
+                <h2 class="prompt-text">Got a Question about <span>Subjects?</span></h2>
+                
+                <div class="search-bar">
+                    <button class="mic-btn" id="voiceInputBtn" title="Speak">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                
+                    <input type="text" id="questionInput" placeholder="Search or type your question..." />
+                
+                    <button class="code-btn" id="toggleCodeBtn" onclick="toggleCodeMode()" title="Toggle Code Mode">
+                        <i class="fas fa-code"></i>
+                    </button>
+                
+                    <button class="send-btn" onclick="sendToAI()">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                
+
+                <div class="chatbox" id="chatbox"></div>
+
+
+                <div id="ai-response" class="ai-response"></div>
+            </div>
+        </main>
+        <aside class="history-panel" id="historyPanel">
+            <div class="history-header">
+                <h3>Chat History</h3>
+                <button id="clearHistoryBtn" title="Clear History">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+            <ul id="historyList"></ul>
+        </aside>
+        
+        
+    </div>
+
+    <script src="chatbot.js"></script>
+</body>
+</html>

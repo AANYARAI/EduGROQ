@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Code Output</title>
+    <link rel="stylesheet" href="codeWindows.css" />
+    <!-- PrismJS CSS for syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <!-- PrismJS JS for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet" />
+
+</head>
+<body>
+
+    <body>
+        <a href="chatbot.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Chatbot
+        </a>
+    
+        <div class="main-layout">
+            <!-- Left Side: Input and Output -->
+            <div class="code-container">
+                <h2 class="search-heading">CODING BOT </h2>
+
+                <div class="search-bar">
+                    <input type="text" id="codeInput" placeholder="Ask a coding question..." />
+                    <button id="codeSendBtn"><i class="fas fa-paper-plane"></i> Send</button>
+                </div>
+    
+                <div class="output-wrapper" id="outputWrapper">
+                    <div class="code-output-wrapper">
+                        <pre><code id="codeOutput" class="language-javascript"> </code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <button id="toggleHistoryBtn" class="toggle-history-btn">🕘 History</button>
+
+<!-- Sliding History Panel -->
+<div id="historyPanel" class="history-panel">
+  <div class="history-header">
+    <h3>Code History</h3>
+    <button id="closeHistoryBtn">✖</button>
+  </div>
+  <ul id="historyList"></ul>
+
+  <button id="clearHistoryBtn" class="clear-history-btn">🗑️ Clear History</button>
+<ul id="historyList"></ul>
+
+</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
+        <script src="codeWindow.js"></script>
+    </body>
+    
+</html>

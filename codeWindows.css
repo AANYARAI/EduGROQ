@@ -1,0 +1,262 @@
+/* === Base Reset & Font === */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+  color: #fff;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* === Back Button === */
+.back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 18px;
+  color: #0ff;
+  text-decoration: none;
+  border: 1px solid #0ff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px #0ff;
+  backdrop-filter: blur(6px);
+}
+.back-btn:hover {
+  background-color: rgba(0, 255, 255, 0.1);
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #0ff;
+}
+
+/* === Container === */
+.code-container {
+  padding: 80px 20px 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* === Search Bar === */
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+.search-bar input {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  background: #1f1f1f;
+  color: #fff;
+  outline: none;
+}
+.search-bar button {
+  padding: 14px 20px;
+  background: #0ff;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 0 10px #0ff;
+}
+.search-bar button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #0ff;
+}
+
+/* === Output === */
+#codeOutput {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Each Q&A block */
+.qa-block {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+  transition: transform 0.3s;
+}
+.qa-block:hover {
+  transform: translateY(-2px);
+}
+
+/* Questions */
+.qa-block .question {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #0ff;
+}
+
+/* Copy Button Inside Answer */
+.copy-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid #0ff;
+  color: #0ff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 8px #0ff3;
+  z-index: 2;
+}
+
+.copy-btn:hover {
+  background-color: rgba(0, 255, 255, 0.2);
+  box-shadow: 0 0 15px #0ff;
+}
+
+.qa-block {
+  position: relative;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+
+/* Syntax Highlighting Overrides (PrismJS) */
+pre, code {
+  font-family: 'Fira Code', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Optional Scroll Enhancements */
+#codeOutput {
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+
+
+/* Floating top-right toggle button */
+.toggle-history-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #ffcb6b;
+  color: #000;
+  padding: 10px 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  z-index: 1001;
+}
+
+/* Responsive sliding panel */
+.history-panel {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 320px;
+  max-width: 90%;
+  height: 100%;
+  background: #2e2e2e;
+  color: white;
+  transition: right 0.3s ease-in-out;
+  z-index: 1000;
+  padding: 20px;
+  overflow-y: auto;
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.history-panel.open {
+  right: 0;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.history-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #ffcb6b;
+}
+
+#closeHistoryBtn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+#historyList {
+  list-style: none;
+  padding: 0;
+}
+
+#historyList li {
+  background: #444;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#historyList li:hover {
+  background: #555;
+}
+
+/* Mobile-friendly enhancements */
+@media (max-width: 600px) {
+  .toggle-history-btn {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  .history-header h3 {
+    font-size: 1rem;
+  }
+}
+
+.clear-history-btn {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  margin: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s ease;
+}
+
+.clear-history-btn:hover {
+  background-color: #e63939;
+}
+
+.search-heading {
+  font-family: 'Fira Code', monospace;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  margin: 0 0 16px 0;
+  text-align: center;
+}

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Multilingual Support | GROQ Math Tutor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Open+Sans&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a2d9d5c6a4.js" crossorigin="anonymous"></script>
+  <style>
+    /* Keep your existing styles exactly as-is */
+    :root {
+      --primary: #00f0ff;
+      --background: #0a0f2c;
+      --card-bg: rgba(255, 255, 255, 0.06);
+      --text: #ffffff;
+      --text-muted: #c0d0e0;
+      --radius: 20px;
+      --glow: 0 0 20px rgba(0, 240, 255, 0.5);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(135deg, #0a0f2c, #07122e);
+      color: var(--text);
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: repeating-conic-gradient(rgba(0, 255, 255, 0.06) 0deg 10deg, transparent 10deg 20deg);
+      animation: rotateBg 60s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes rotateBg {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: auto;
+      padding: 80px 25px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 50px;
+      animation: fadeIn 1.2s ease forwards;
+    }
+
+    .header h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3.2rem;
+      color: var(--primary);
+      text-shadow: 0 0 12px var(--primary);
+    }
+
+    .header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      margin-top: 10px;
+      max-width: 700px;
+      margin-inline: auto;
+    }
+
+    .dropdown {
+      text-align: center;
+      margin: 20px auto;
+    }
+
+    #language-select{
+      background-color: rgb(31, 31, 54);
+    }
+
+    select.language-select {
+      background: var(--card-bg);
+      color: var(--text);
+      border: 1px solid var(--primary);
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 10px;
+      outline: none;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    }
+
+    .main-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 255, 255, 0.12);
+      box-shadow: var(--glow);
+      display: flex;
+      flex-direction: column-reverse;
+      padding: 50px;
+      gap: 40px;
+      animation: riseIn 1.3s ease;
+    }
+
+    @media (min-width: 768px) {
+      .main-card {
+        flex-direction: row;
+      }
+    }
+
+    .text-area {
+      flex: 1;
+      animation: slideInLeft 1s ease;
+    }
+
+    .text-area h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+
+    .text-area p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 25px;
+    }
+
+    ul.features {
+      list-style: none;
+    }
+
+    ul.features li {
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 16px;
+      font-size: 1.05rem;
+    }
+
+    ul.features li::before {
+      font-family: "Font Awesome 6 Free";
+      content: "\f0ab"; /* icon: globe */
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+    }
+
+    .image-area {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .image-area img {
+      max-width: 320px;
+      border-radius: 20px;
+      filter: drop-shadow(0 0 15px var(--primary));
+      transition: transform 0.4s ease;
+    }
+
+    .image-area img:hover {
+      transform: scale(1.07);
+    }
+
+    .cta {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: #000;
+      padding: 15px 40px;
+      font-size: 1.1rem;
+      border-radius: 30px;
+      border: none;
+      font-weight: bold;
+      box-shadow: 0 0 20px var(--primary), 0 0 10px var(--primary);
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      background: #00ccdd;
+    }
+
+    /* Animations */
+    @keyframes riseIn {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideInLeft {
+      0% { opacity: 0; transform: translateX(-30px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Header -->
+    <div class="header">
+      <h1><i class="fas fa-language"></i> Multilingual Support</h1>
+      <p>Learn math in your native language — powered by GROQ AI translation and real-time interaction.</p>
+    </div>
+
+    <!-- Language Selector -->
+    <div class="dropdown">
+      <label for="language-select" style="margin-right: 10px;">🌐 Choose Language:</label>
+      <select id="language-select" class="language-select">
+        <option value="en">English</option>
+        <option value="es">Spanish</option>
+        <option value="hi">Hindi</option>
+        <option value="fr">French</option>
+        <option value="zh">Mandarin</option>
+        <option value="ar">Arabic</option>
+        <option value="ja">Japanese</option>
+      </select>
+    </div>
+
+    <!-- Feature Section -->
+    <div class="main-card">
+      <div class="text-area">
+        <h2 id="feature-title"><i class="fas fa-robot"></i> Speak, Solve & Understand</h2>
+        <p id="feature-description">Ask math questions in your language and get step-by-step solutions with real-time translation. Learn algebra, calculus, geometry, and more with native fluency support.</p>
+        <ul class="features" id="feature-list">
+          <li>Instant translation across 100+ languages</li>
+          <li>Voice-to-text & text-to-speech capabilities</li>
+          <li>Context-aware math explanations</li>
+          <li>Global access, inclusive learning</li>
+        </ul>
+      </div>
+      <div class="image-area">
+        <img src="https://cdn-icons-png.flaticon.com/512/3871/3871225.png" alt="Math Tutor Multilingual">
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+      <a href="" class="btn">START LEARNING</a>
+    </div>
+
+  </div>
+  
+  <!-- LANGUAGE TRANSLATION SCRIPT -->
+  <script>
+    const translations = {
+      en: {
+        title: "Speak, Solve & Understand",
+        description: "Ask math questions in your language and get step-by-step solutions with real-time translation. Learn algebra, calculus, geometry, and more with native fluency support.",
+        features: [
+          "Instant translation across 100+ languages",
+          "Voice-to-text & text-to-speech capabilities",
+          "Context-aware math explanations",
+          "Global access, inclusive learning"
+        ]
+      },
+      es: {
+        title: "Habla, Resuelve y Comprende",
+        description: "Haz preguntas de matemáticas en tu idioma y obtén soluciones paso a paso con traducción en tiempo real. Aprende álgebra, cálculo, geometría y más con apoyo nativo.",
+        features: [
+          "Traducción instantánea en más de 100 idiomas",
+          "Reconocimiento y síntesis de voz",
+          "Explicaciones matemáticas contextuales",
+          "Acceso global, aprendizaje inclusivo"
+        ]
+      },
+      hi: {
+        title: "बोलें, हल करें और समझें",
+        description: "अपनी भाषा में गणितीय प्रश्न पूछें और रीयल-टाइम अनुवाद के साथ चरण-दर-चरण समाधान प्राप्त करें। बीजगणित, कैल्कुलस, ज्योमेट्री आदि को स्थानीय भाषा में सीखें।",
+        features: [
+          "100+ भाषाओं में त्वरित अनुवाद",
+          "वॉइस-टू-टेक्स्ट और टेक्स्ट-टू-स्पीच सुविधा",
+          "संदर्भ-आधारित गणितीय व्याख्याएँ",
+          "वैश्विक पहुँच, समावेशी शिक्षा"
+        ]
+      },
+      fr: {
+        title: "Parlez, Résolvez & Comprenez",
+        description: "Posez des questions mathématiques dans votre langue et obtenez des solutions étape par étape avec une traduction en temps réel. Apprenez l'algèbre, le calcul, la géométrie et plus encore avec un support linguistique natif.",
+        features: [
+          "Traduction instantanée dans plus de 100 langues",
+          "Fonctionnalités de voix en texte et texte en voix",
+          "Explications mathématiques contextuelles",
+          "Accès mondial, apprentissage inclusif"
+        ]
+      },
+      zh: {
+        title: "说、解答和理解",
+        description: "用你的语言提问数学问题，并通过实时翻译获取逐步解决方案。以母语流利度学习代数、微积分、几何等。",
+        features: [
+          "支持100多种语言的即时翻译",
+          "语音转文字和文字转语音功能",
+          "基于上下文的数学解释",
+          "全球访问，包容性学习"
+        ]
+      },
+      ar: {
+        title: "تحدث، احسب، وافهم",
+        description: "اطرح أسئلة رياضية بلغتك واحصل على حلول خطوة بخطوة مع ترجمة فورية. تعلم الجبر، والتفاضل، والهندسة والمزيد بدعم لغتك الأم.",
+        features: [
+          "ترجمة فورية لأكثر من 100 لغة",
+          "التحويل بين الصوت والنص",
+          "تفسيرات رياضية حسب السياق",
+          "وصول عالمي وتعليم شامل"
+        ]
+      },
+      ja: {
+        title: "話す、解く、理解する",
+        description: "自分の言語で数学の質問をして、リアルタイム翻訳によるステップバイステップの解決策を得ましょう。代数、微積分、幾何などを母国語で学べます。",
+        features: [
+          "100以上の言語に即時翻訳",
+          "音声入力と音声出力機能",
+          "コンテキストに応じた数学の説明",
+          "グローバルアクセスと包括的な学習"
+        ]
+      }
+    };
+
+    const select = document.getElementById('language-select');
+    const titleEl = document.getElementById('feature-title');
+    const descEl = document.getElementById('feature-description');
+    const featureListEl = document.getElementById('feature-list');
+
+    select.addEventListener('change', () => {
+      const lang = select.value;
+      const content = translations[lang];
+
+      if (content) {
+        titleEl.innerHTML = `<i class="fas fa-robot"></i> ${content.title}`;
+        descEl.textContent = content.description;
+        featureListEl.innerHTML = '';
+        content.features.forEach(f => {
+          const li = document.createElement('li');
+          li.textContent = f;
+          featureListEl.appendChild(li);
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

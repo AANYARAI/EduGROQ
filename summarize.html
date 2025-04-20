@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Summarizer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* Global styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1a1a1a, #0f0f0f);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      position: relative;
+      background: rgba(236, 231, 231, 0.05);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 30px;
+      width: 90%;
+      max-width: 900px;
+      box-shadow: 0 0 25px rgba(0, 255, 200, 0.2);
+      overflow: hidden;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #00ffff;
+      margin-bottom: 30px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      padding: 0 15px;
+    }
+
+    .back-btn {
+      background: var(--accent);
+      background-color: #00ffff;
+      border: none;
+      color: rgb(8, 8, 8);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .back-btn:hover {
+      color: #080808;
+      transform: translateX(-5px);
+    }
+
+    .counter {
+      font-size: 1rem;
+      color: #ccc;
+    }
+
+    textarea {
+      width: 100%;
+      height: 200px;
+      padding: 15px;
+      border-radius: 15px;
+      border: none;
+      background: #1a1a1a;
+      color: #fff;
+      font-size: 1.1rem;
+      resize: none;
+      margin-bottom: 25px;
+      box-shadow: inset 0 0 12px rgba(0, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    textarea:focus {
+      outline: none;
+      box-shadow: inset 0 0 12px rgba(0, 255, 255, 0.3);
+    }
+
+    button {
+      display: inline-block;
+      padding: 12px 25px;
+      background: #00ffff;
+      color: #000;
+      font-weight: bold;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background: #00e0e0;
+      transform: scale(1.05);
+    }
+
+    #summaryOutput {
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      box-shadow: inset 0 0 8px rgba(0, 255, 255, 0.1);
+      color: #ffffff;
+      white-space: pre-wrap;
+      min-height: 80px;
+    }
+
+    /* Sliding History Panel */
+    .history-toggle {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      background: #00ffff;
+      color: #000;
+      padding: 12px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s ease, transform 0.3s ease;
+      z-index: 1001;
+    }
+
+    .history-toggle:hover {
+      background: #00e0e0;
+      transform: translateY(-3px);
+    }
+
+    /* Panel Styles */
+    .history-panel {
+      position: fixed;
+      top: 80px;
+      right: -350px; /* Initially hidden */
+      width: 320px;
+      height: 80%;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px 0 0 10px;
+      padding: 20px;
+      overflow-y: auto;
+      transition: right 0.3s ease;
+      z-index: 1000;
+      box-shadow: -5px 0 20px rgba(0, 255, 255, 0.15);
+    }
+
+    .history-panel.open {
+      right: 0; /* When open, slide in from the right */
+    }
+
+    .history-panel h3 {
+      color: #0ff;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .history-panel ul {
+      list-style: none;
+      padding-left: 0;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .history-panel li {
+      padding: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      font-size: 1rem;
+      color: #ccc;
+      transition: background 0.2s ease;
+    }
+
+    .history-panel li:hover {
+      background: rgba(0, 255, 255, 0.2);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .history-toggle {
+        font-size: 0.9rem;
+      }
+      h1 {
+        font-size: 1.8rem;
+      }
+    }
+    #summaryOutput {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  box-shadow: inset 0 0 8px rgba(0, 255, 255, 0.1);
+  color: #ffffff;
+  white-space: pre-wrap;
+  height: 250px; /* Increased height */
+  overflow-y: auto; /* Scroll when content exceeds */
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="controls">
+      <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Go Back</button>
+      <!-- <div class="counter" id="counter">0 words | 0 characters</div> -->
+    </div>
+
+    <h1>AI Content Summarizer</h1>
+
+    <textarea id="textInput" placeholder="Paste or type content here..."></textarea>
+
+    <button onclick="summarizeText()">Summarize</button>
+
+    <div id="summaryOutput"></div>
+  </div>
+
+  <!-- History Toggle Button -->
+  <div class="history-toggle" onclick="toggleHistory()">History</div>
+
+  <!-- Sliding History Panel -->
+  <div class="history-panel" id="historyPanel">
+    <h3><i class="fas fa-history"></i> Summary History</h3>
+    <ul id="historyList"></ul>
+  </div>
+
+  <script>
+    // Grab references once
+const inputEl       = document.getElementById("textInput");
+const summaryOutput = document.getElementById("summaryOutput");
+const historyList   = document.getElementById("historyList");
+
+// 1) Initialize on page load
+document.addEventListener("DOMContentLoaded", () => {
+  loadHistory();
+});
+
+// 2) Go Back button
+function goBack() {
+  window.location.href = "features.html"; // or your actual homepage
+}
+
+// 3) Toggle the sliding history panel
+function toggleHistory() {
+  document.getElementById("historyPanel").classList.toggle("open");
+}
+
+// 4) Main summarize function (uses GROQ API)
+async function summarizeText() {
+  const content = inputEl.value.trim();
+  if (!content) {
+    alert("Please enter some content to summarize.");
+    return;
+  }
+
+  // Call GROQ
+  let summary;
+  try {
+    const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer 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"
+      },
+      body: JSON.stringify({
+        model: "llama3-8b-8192",
+        messages: [
+          { role: "system", content: "You are a helpful tutor that summarizes content." },
+          { role: "user",   content }
+        ]
+      })
+    });
+
+    const data = await res.json();
+    if (!data.choices || !data.choices[0]) {
+      throw new Error("No response from GROQ.");
+    }
+
+    summary = data.choices[0].message.content.trim();
+  } catch (err) {
+    alert("Error while summarizing: " + err.message);
+    return;
+  }
+
+  // Display and save
+  summaryOutput.textContent = summary;
+  saveToHistory(content, summary);
+}
+
+// 5) Create a single history-item DOM node (but don’t persist)
+function createHistoryItem(original, summary) {
+  const li = document.createElement("li");
+  li.textContent = summary.length > 70
+    ? summary.slice(0, 70) + "…"
+    : summary;
+  li.title = original;
+  li.onclick = () => {
+    inputEl.value = original;
+    summaryOutput.textContent = summary;
+    toggleHistory(); // auto-close panel if you like
+  };
+  return li;
+}
+
+// 6) Save new summary into localStorage + UI
+function saveToHistory(original, summary) {
+  // Update storage
+  const history = JSON.parse(localStorage.getItem("summaryHistory") || "[]");
+  history.unshift({ original, summary });
+  if (history.length > 20) history.pop();           // keep last 20
+  localStorage.setItem("summaryHistory", JSON.stringify(history));
+
+  // Prepend to UI
+  historyList.prepend(createHistoryItem(original, summary));
+}
+
+// 7) Load stored summaries into the panel
+function loadHistory() {
+  historyList.innerHTML = "";
+  const history = JSON.parse(localStorage.getItem("summaryHistory") || "[]");
+  history.forEach(({ original, summary }) => {
+    historyList.append(createHistoryItem(original, summary));
+  });
+}
+
+  </script>
+</body>
+</html>

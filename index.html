@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GROQ Educational Tutor</title>
+  <link rel="stylesheet" href="index.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Lora&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+
+
+</head>
+<body>
+
+
+  
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">EduTutor Hub</div>
+      <button class="menu-toggle" id="mobileMenuToggle">&#9776;</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#" id="aboutBtn">About</a></li>
+        <li><a href="#" id="openPricing">Pricing</a></li>
+        <li><a href="#" id="loginBtn">Login</a></li>
+        <li><a href="#" id="openSignup">Sign Up</a></li>
+        
+
+      </ul>
+    </div>
+  </nav>
+
+  <!-- DARK OVERLAY FOR DIM EFFECT -->
+  <div class="overlay" id="pageOverlay"></div>
+
+  <header class="hero">
+    <div class="text-content">
+      <h1>
+        <span class="title-main">GROQ</span> Educational Tutor<br />
+        <span class="subtitle">
+          <span class="highlight">GROQ-powered</span> tutor with <span class="highlight2">voice and image input</span>
+        </span>
+      </h1>
+
+      <div class="lists">
+        <div class="features">
+          <h3>FEATURES</h3>
+          <ul>
+            <li>Grog-powered AI tutor</li>
+            <li>Voice and image input</li>
+            <li>Instant feedback</li>
+          </ul>
+        </div>
+        <div class="benefits">
+          <h3>BENEFITS</h3>
+          <ul>
+            <li>Improves understanding</li>
+            <li>Engaging interaction</li>
+            <li>Convenient access</li>
+          </ul>
+        </div>
+      </div>
+
+      <a href="features.html" class="cta-button">START LEARNING</a>
+    </div>
+  </div>
+
+    <!-- LOGIN MODAL -->
+<div class="login-modal" id="loginModal">
+  <div class="login-content glassy-card">
+    <span class="close-btn" id="closeLogin">&times;</span>
+    
+    <p class="login-welcome">Welcome to Groq</p> <!--  Added line here -->
+    <form>
+      <label for="email">Email</label>
+      <input type="email" id="email" required />
+      
+      <label for="password">Password</label>
+      <input type="password" id="password" required />
+      
+      <button type="submit" class="login-submit"> LOGIN</button>
+    </form>
+  </div>
+</div>
+
+
+<div class="signup-modal" id="signupModal">
+  <div class="signup-content glassy-card">
+      <span class="close-signup" onclick="document.getElementById('signupModal').style.display='none'">&times;</span>
+      <h2>Create Account</h2>
+      <input type="text" placeholder="Full Name" required>
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Password" required>
+      <button type="submit">Sign Up</button>
+  </div>
+</div>
+
+<script>
+  document.getElementById("openSignup").addEventListener("click", function(event) {
+      event.preventDefault();
+      document.getElementById("signupModal").style.display = "flex";
+  });
+</script>
+</body>
+</html>
+
+<!-- Ask GROQ Button (instead of chat icon) -->
+<div class="ask-groq" id="chatToggle">Ask GROQ</div>
+
+<!-- Chat Window -->
+<div class="chat-window" id="chatWindow">
+
+    <script src="index.js"></script>
+ 
+  </div>
+</div>
+
+<!-- PRICING MODAL -->
+<div class="pricing-modal" id="pricingModal">
+  <div class="pricing-content">
+    <span class="close-btn" id="closePricing">&times;</span>
+    <h2>Our Plans</h2>
+    <div class="pricing-cards">
+      <div class="card">
+        <h3>Basic</h3>
+        <p>$0 / month</p>
+        <ul>
+          <li>Limited AI access</li>
+          <li>Email support</li>
+          <li>Up to 3 questions/day</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Pro</h3>
+        <p>$9.99 / month</p>
+        <ul>
+          <li>Unlimited questions</li>
+          <li>Priority email support</li>
+          <li>Voice & image input</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Elite</h3>
+        <p>$24.99 / month</p>
+        <ul>
+          <li>All Pro features</li>
+          <li>1-on-1 AI tutoring</li>
+          <li>Premium support</li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT MODAL -->
+<div class="about-modal" id="aboutModal">
+  <div class="about-content">
+    <span class="close-btn" id="closeAbout">&times;</span>
+    <h2>About GROQ</h2>
+    <p>
+      GROQ Educational Tutor is a cutting-edge AI-powered learning platform designed to provide personalized, interactive, and effective tutoring. With support for voice and image inputs, it engages students in a dynamic way, helping them learn faster and retain more. Whether you're preparing for exams, doing homework, or just curious, GROQ adapts to your learning needs!
+    </p>
+  </div>
+</div>
+
+    
+<!-- Social Media Sidebar -->
+<div class="social-sidebar">
+ <!-- Facebook -->
+<a href="https://facebook.com" class="social-item facebook" target="_blank">
+  <i class="fab fa-facebook"> </i>
+</a>
+
+<!-- Twitter -->
+<a href="https://twitter.com" class="social-item twitter" target="_blank">
+  <i class="fab fa-twitter"></i> 
+</a>
+
+<!-- Instagram -->
+<a href="https://instagram.com" class="social-item instagram" target="_blank">
+  <i class="fab fa-instagram"></i> 
+</a>
+
+<!-- LinkedIn -->
+<a href="https://linkedin.com" class="social-item linkedin" target="_blank">
+  <i class="fab fa-linkedin"></i> 
+</a>
+
+</div>
+
+
+
+<script src="index.js"></script>
+
+</body>
+</html>
