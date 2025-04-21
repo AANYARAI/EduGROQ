@@ -218,6 +218,24 @@
       0% { opacity: 0; }
       100% { opacity: 1; }
     }
+    .back-home {
+  position: absolute;
+  left: -100px;
+  top: 30px;
+  transform: translateY(-50%);
+  color: #00f9ff;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 6px 12px;
+  border: 2px solid #00f9ff;
+  border-radius: 6px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.back-home:hover {
+  background: #00f9ff;
+  color: #12163a;
+}
   </style>
 </head>
 <body>
@@ -226,6 +244,7 @@
 
     <!-- Header -->
     <div class="header">
+      <a href="features.html" class="back-home">←Back</a>
       <h1><i class="fas fa-language"></i> Multilingual Support</h1>
       <p>
         Learn math in your native language — powered by GROQ AI translation and real-time interaction.
