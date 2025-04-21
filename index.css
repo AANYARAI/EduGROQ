@@ -250,7 +250,7 @@ body {
   letter-spacing: 0.5px; 
   line-height: 1.2; 
   color: #fdfbfb; 
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05); /* subtle polish */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 

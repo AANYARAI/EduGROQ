@@ -697,7 +697,7 @@ body {
     transform: translateY(-1px);
   }
   
-  /* Modal fade-in animation */
+
   @keyframes fadeIn {
     from {
       opacity: 0;

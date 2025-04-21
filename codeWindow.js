@@ -12,7 +12,6 @@ const clearHistoryBtn  = document.getElementById("clearHistoryBtn");
 const savedHistory = JSON.parse(localStorage.getItem("codeHistory")) || [];
 savedHistory.forEach(entry => addToHistory(entry.question, entry.answer));
 
-// ---------------------------------------------
 // Very basic coding‑question detector
 function isCodingQuestion(text) {
   const keywords = [
