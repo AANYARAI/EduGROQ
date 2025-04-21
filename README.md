@@ -104,4 +104,4 @@ Feel free to use and modify it for personal, educational, or experimental projec
 💬 Final Note
 “Education is not the filling of a pail, but the lighting of a fire.” — William Butler Yeats
 
-Thank you for checking out MyTUTOR. We hope it makes learning simpler, faster, and more fun for everyone! 🚀
+Thank you for checking out EduGROQ. We hope it makes learning simpler, faster, and more fun for everyone! 🚀
