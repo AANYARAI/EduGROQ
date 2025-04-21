@@ -16,17 +16,20 @@
         <aside class="sidebar">
             <div class="logo">GROQ</div>
             <div class="user-profile">
-                <img src="" alt="User Avatar">
-                <div class="user-info">
-                    <h4>User</h4>
-                    <p>@user-profile</p>
+                <div class="avatar-initials" id="userInitialsBadge"></div>
+                <div class="user-profile">
+                  <h4 id="userFullName">User</h4>
+                  <p id="userHandle">@username</p>
                 </div>
-            </div>
+              </div>
+              
             <nav>
                 <ul>
                     <li id="newQuestionBtn" class="active">New Chat</li>
                     <li id="homeBtn">Home</li>
                     <li onclick="toggleHistory()">History</li>
+                    <li id="FeatureBtn">Features</li>
+                    <li id="logoutBtn">Logout</li>
 
                 </ul>
             </nav>
@@ -78,6 +81,16 @@
         
         
     </div>
+
+    <div id="logoutModal" class="modal-overlay">
+        <div class="logout-modal-content">
+          <h3>Are you sure you want to logout?</h3>
+          <div class="logout-buttons">
+            <button id="confirmLogout" class="confirm-btn">Yes Logout</button>
+            <button id="cancelLogout" class="cancel-btn">Cancel</button>
+          </div>
+        </div>
+      </div>
 
     <script src="chatbot.js"></script>
 </body>

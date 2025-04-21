@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Learning Tutor</title>
+  <style>
+    :root {
+      --bg-dark: #0f0f1a;
+      --bg-light: #f0f8ff;
+      --text-dark: #e0f7fa;
+      --text-light: #1a1a1a;
+      --accent: #00ffff;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(0, 255, 255, 0.2);
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--bg-dark);
+      color: var(--text-dark);
+      transition: background 0.4s, color 0.4s;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body.light {
+      background: var(--bg-light);
+      color: var(--text-light);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 80px auto;
+      padding: 40px 30px;
+      background: var(--glass-bg);
+      border-radius: 20px;
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+    }
+
+    h1 {
+      color: var(--accent);
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    label {
+      font-weight: 500;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 120px;
+      padding: 15px;
+      border-radius: 12px;
+      border: 1px solid var(--accent);
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      font-size: 1rem;
+      resize: none;
+      box-shadow: 0 0 5px rgba(0,255,255,0.2);
+      outline: none;
+    }
+
+    textarea::placeholder {
+      color: #aaa;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      background: var(--accent);
+      color: #000;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--accent);
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: #00e0e0;
+    }
+
+    .toggle-mode {
+      position: absolute;
+      top: -80px;
+      right: 20px;
+      font-size: 0.9rem;
+  
+      background: transparent;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+    }
+    .toggle-mode:hover {
+      background-color: var(--accent);
+      color: var(--bg-dark);
+    }
+
+    .back-btn {
+      position: absolute;
+      top: -80px;
+      left: 20px;
+      background: transparent;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+    }
+
+    .back-btn:hover {
+      background-color: var(--accent);
+      color: var(--bg-dark);
+    }
+
+    body.light .back-btn {
+      color: var(--text-light);
+      border-color: #007bff;
+    }
+
+    body.light .back-btn:hover {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .suggestions {
+      margin-top: 20px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      padding: 20px;
+      border-radius: 12px;
+      color: var(--text-dark);
+      max-height: 150px;
+      overflow-y: auto;
+      font-style: italic;
+    }
+
+    .avatar {
+      width: 100px;
+      margin-top: 30px;
+      animation: float 2s ease-in-out infinite;
+      border-radius: 20px;
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    h3 {
+      margin-top: 40px;
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+    <button class="back-btn" onclick="window.location.href='features.html'">🔙 Back to Features</button>
+
+    <button class="toggle-mode" onclick="toggleMode()">🌓 Toggle Mode</button>
+
+  <div class="container">
+    <h1>👩‍🏫 AI Learning Tutor</h1>
+    <p>Your AI tutor tracks your learning and suggests personalized resources.</p>
+
+    <label for="userInput">Enter your current topic or doubt:</label>
+    <textarea id="userInput" placeholder="E.g., I struggle with quadratic equations..."></textarea>
+    <button onclick="getSuggestions()">Get Suggestions</button>
+
+    <div class="suggestions" id="suggestionBox"></div>
+
+    <h3>Your Tutor</h3>
+    <img src="https://media.giphy.com/media/xUA7aZeLE2e0P7Znz2/giphy.gif" alt="Animated Tutor" class="avatar" id="avatar">
+    <br>
+    <button onclick="speak()">🔊 Speak</button>
+  </div>
+
+  <script>
+    const suggestionBox = document.getElementById("suggestionBox");
+    const input = document.getElementById("userInput");
+
+    function toggleMode() {
+      document.body.classList.toggle("dark");
+    }
+
+    function goBack() {
+      alert("Redirecting to Features...");
+      // Replace with actual route like: window.location.href = 'features.html';
+    }
+
+    async function getSuggestions() {
+      const content = input.value.trim();
+      if (!content) return alert("Type your topic or doubt!");
+
+      suggestionBox.innerHTML = "<em>Thinking...</em>";
+
+      const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer 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"
+        },
+        body: JSON.stringify({
+          model: "llama3-8b-8192",
+          messages: [
+            { role: "system", content: "You are a learning assistant. Based on the user’s input, suggest the best exercises or resources for their level." },
+            { role: "user", content }
+          ]
+        })
+      });
+
+      const data = await response.json();
+      const message = data.choices?.[0]?.message?.content || "Sorry, no suggestion.";
+      suggestionBox.textContent = message;
+      saveProgress(content, message);
+    }
+
+    function saveProgress(input, suggestion) {
+      const history = JSON.parse(localStorage.getItem("aiLearningHistory") || "[]");
+      history.unshift({ input, suggestion, time: new Date().toLocaleString() });
+      localStorage.setItem("aiLearningHistory", JSON.stringify(history));
+    }
+
+    function speak() {
+      const text = suggestionBox.textContent;
+      const msg = new SpeechSynthesisUtterance(text);
+      msg.lang = 'en-US';
+      speechSynthesis.speak(msg);
+    }
+  </script>
+</body>
+</html>

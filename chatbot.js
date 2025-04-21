@@ -1,243 +1,187 @@
 let chatHistory = [];
-    async function sendToAI() {
-        const input = document.getElementById("questionInput");
-        const message = input.value.trim();
-        if (!message) return;
-    
-        addMessage("user", message);
-        input.value = "";
-    
-        fetch("https://api.groq.com/openai/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer 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"
-            },
-            body: JSON.stringify({
-                model: "llama3-8b-8192",
-                messages: [{ role: "user", content: message }]
-            })
-        })
-        .then(res => {
-            if (!res.ok) throw new Error("Network response was not okay");
-            return res.json();
-        })
-        .then(data => {
-            const reply = data.choices[0].message.content.trim();
-            addMessage("ai", reply);
-    
-            // ✅ Save BOTH question and answer to localStorage + sidebar history
-            saveChatToHistory(message, reply);
-        })
-        .catch(err => {
-            console.error(err);
-            const errorMsg = "⚠️ Sorry, I couldn't process that.";
-            addMessage("ai", errorMsg);
-            saveChatToHistory(message, errorMsg); // Still save the failed result
-        });
-    }
-    
+let isCodeMode = false;
+let codeWindow = null;
 
-    function updateHistory() {
-        const list = document.getElementById("historyList");
-        list.innerHTML = "";
+// DOM elements
+const input = document.getElementById("questionInput");
+const chatbox = document.getElementById("chatbox");
+const aiResponse = document.getElementById("ai-response");
+const voiceBtn = document.getElementById("voiceInputBtn");
+const historyList = document.getElementById("historyList");
 
-        chatHistory.slice().reverse().forEach((item, index) => {
-            const li = document.createElement("li");
-            li.textContent = item.length > 40 ? item.slice(0, 40) + "..." : item;
-            li.onclick = () => {
-                document.getElementById("questionInput").value = item;
-                document.getElementById("questionInput").focus();
-            };
-            list.appendChild(li);
-        });
-    }
+// Send message to AI
+async function sendToAI() {
+  const message = input.value.trim();
+  if (!message) return;
 
+  addMessage("user", message);
+  input.value = "";
 
-
-        // Voice recognition logic
-    const voiceBtn = document.getElementById("voiceInputBtn");
-    const inputField = document.getElementById("questionInput");
-
-    let recognition;
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        recognition = new SpeechRecognition();
-        recognition.lang = 'en-US';
-        recognition.continuous = false;
-        recognition.interimResults = false;
-
-        recognition.onstart = () => {
-            voiceBtn.classList.add('active');
-            console.log("🎙️ Voice recognition started");
-        };
-
-        recognition.onresult = (event) => {
-            const transcript = event.results[0][0].transcript;
-            inputField.value = transcript;
-            console.log("🗣️ You said:", transcript);
-        };
-
-        recognition.onerror = (event) => {
-            console.error("❌ Voice recognition error:", event.error);
-        };
-
-        recognition.onend = () => {
-            voiceBtn.classList.remove('active');
-            console.log("🛑 Voice recognition ended");
-        };
-    } else {
-        alert("⚠️ Sorry, your browser doesn't support Speech Recognition.");
-        voiceBtn.disabled = true;
-    }
-
-    // Start recognition on button click
-    voiceBtn.addEventListener("click", () => {
-        if (recognition) recognition.start();
-        
+  try {
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer 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"
+      },
+      body: JSON.stringify({
+        model: "llama3-8b-8192",
+        messages: [{ role: "user", content: message }]
+      })
     });
 
-    // Trigger sendToAI on Enter key
-    const questionInput = document.getElementById("questionInput");
+    if (!response.ok) throw new Error("Network Error");
 
-    questionInput.addEventListener("keydown", function (event) {
-        if (event.key === "Enter") {
-            event.preventDefault(); // Prevent form submit or line break
-            sendToAI(); // Call your send function
-        }
-    });
+    const data = await response.json();
+    const reply = data.choices[0].message.content.trim();
 
-    function addMessage(sender, text) {
-        const chatbox = document.getElementById("chatbox");
+    addMessage("ai", reply);
+    saveChatToHistory(message, reply);
 
-        const messageDiv = document.createElement("div");
-        messageDiv.classList.add("message", sender);
-        messageDiv.innerText = text;
-
-        chatbox.appendChild(messageDiv);
-        chatbox.scrollTop = chatbox.scrollHeight; // Auto scroll
+    if (isCodeMode && codeWindow && !codeWindow.closed) {
+      codeWindow.postMessage({ type: 'updateCode', content: reply }, "*");
     }
+  } catch (err) {
+    console.error(err);
+    const errorMsg = "⚠️ Sorry, something went wrong.";
+    addMessage("ai", errorMsg);
+    saveChatToHistory(message, errorMsg);
+  }
+}
 
-    function toggleHistory() {
-        const panel = document.getElementById("historyPanel");
-        panel.style.display = panel.style.display === "none" ? "block" : "none";
+function addMessage(sender, text) {
+  const messageDiv = document.createElement("div");
+  messageDiv.className = `message ${sender}`;
+  messageDiv.innerText = text;
+  chatbox.appendChild(messageDiv);
+  chatbox.scrollTop = chatbox.scrollHeight;
+}
+
+function saveChatToHistory(question, answer) {
+  const listItem = document.createElement("li");
+  listItem.className = "history-item";
+  listItem.innerHTML = `<strong>Q:</strong> ${question}<br><strong>A:</strong> ${answer}`;
+  listItem.onclick = () => {
+    input.value = question;
+    aiResponse.innerHTML = answer;
+  };
+  historyList.prepend(listItem);
+  const saved = JSON.parse(localStorage.getItem("chatHistory")) || [];
+  saved.unshift({ question, answer });
+  localStorage.setItem("chatHistory", JSON.stringify(saved));
+}
+
+function loadChatHistory() {
+  const saved = JSON.parse(localStorage.getItem("chatHistory")) || [];
+  saved.forEach(({ question, answer }) => saveChatToHistory(question, answer));
+}
+
+function toggleHistory() {
+  const panel = document.getElementById("historyPanel");
+  panel.style.display = panel.style.display === "none" ? "block" : "none";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadChatHistory();
+
+  document.getElementById("newQuestionBtn").addEventListener("click", () => {
+    chatbox.classList.add("fade-out");
+    aiResponse.classList.add("fade-out");
+
+    setTimeout(() => {
+      chatbox.innerHTML = "";
+      aiResponse.innerHTML = "";
+      chatbox.classList.remove("fade-out");
+      aiResponse.classList.remove("fade-out");
+      const resetMsg = document.createElement("div");
+      resetMsg.className = "system-msg";
+      resetMsg.textContent = "Chat cleared. Ready for a new question!";
+      chatbox.appendChild(resetMsg);
+      setTimeout(() => resetMsg.remove(), 2000);
+    }, 500);
+  });
+
+  document.getElementById("clearHistoryBtn").addEventListener("click", () => {
+    if (confirm("Clear all chat history?")) {
+      localStorage.removeItem("chatHistory");
+      historyList.innerHTML = "";
     }
+  });
 
-    function setUser(fullName) {
-        const userName = document.getElementById('userName');
-        const userHandle = document.getElementById('userHandle');
-        const userAvatar = document.getElementById('userAvatar');
+  document.getElementById("homeBtn").addEventListener("click", () => {
+    window.location.href = "Index.html";
+  });
+  document.getElementById("FeatureBtn").addEventListener("click", () => {
+    window.location.href = "features.html";
+  });
 
-        userName.textContent = fullName;
 
-        // Generate handle (e.g. John Doe -> @johndoe)
-        const handle = "@" + fullName.toLowerCase().replace(/\s+/g, '');
-        userHandle.textContent = handle;
-
-        // Update avatar using ui-avatars.com
-        const avatarURL = `https://ui-avatars.com/api/?name=${encodeURIComponent(fullName)}&background=0D8ABC&color=fff&size=60`;
-        userAvatar.src = avatarURL;
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      sendToAI();
     }
+  });
 
-    function saveChatToHistory(question, answer) {
-        const historyList = document.getElementById("historyList");
+  const name = localStorage.getItem("userName");
+  const email = localStorage.getItem("userEmail");
 
-        const listItem = document.createElement("li");
-        listItem.className = "history-item";
+  if (name && email) {
+    document.getElementById("userFullName").textContent = name;
+    document.getElementById("userHandle").textContent = `@${email}`;
+    const initials = name.split(" ").map(n => n[0]).join("").toUpperCase();
+    document.getElementById("userInitialsBadge").textContent = initials;
+  }
 
-        // Display both question and answer nicely
-        listItem.innerHTML = `
-            <strong>Q:</strong> ${question}<br>
-            <strong>A:</strong> ${answer}
-        `;
+  const logoutBtn = document.getElementById("logoutBtn");
+  const logoutModal = document.getElementById("logoutModal");
+  const confirmLogout = document.getElementById("confirmLogout");
+  const cancelLogout = document.getElementById("cancelLogout");
 
-        // Optionally: allow clicking to re-load this chat
-        listItem.addEventListener("click", () => {
-            questionInput.value = question;
-            aiResponse.innerHTML = answer;
-        });
+  logoutBtn.addEventListener("click", () => {
+    logoutModal.style.display = "flex";
+  });
 
-        historyList.prepend(listItem); // Add to top
-    }
+  confirmLogout.addEventListener("click", () => {
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userEmail");
+    window.location.href = "index.html";
+  });
 
+  cancelLogout.addEventListener("click", () => {
+    logoutModal.style.display = "none";
+  });
+});
 
-    //NEW CHAT//
-    document.addEventListener("DOMContentLoaded", () => {
-        const newChatBtn = document.getElementById("newQuestionBtn");
-        const questionInput = document.getElementById("questionInput");
-        const chatbox = document.getElementById("chatbox");
-        const aiResponse = document.getElementById("ai-response");
+function toggleCodeMode() {
+  const btn = document.getElementById("toggleCodeBtn");
+  isCodeMode = !isCodeMode;
+  btn.classList.toggle("active");
+  input.placeholder = isCodeMode ? "Ask your coding question..." : "Search or type your question...";
 
-        newChatBtn.addEventListener("click", () => {
-            // Apply fade-out effect
-            chatbox.classList.add("fade-out");
-            aiResponse.classList.add("fade-out");
+  if (isCodeMode) {
+    codeWindow = window.open("codeWindow.html", "CodeOutputWindow", "width=700,height=600,resizable=yes,scrollbars=yes");
+  } else if (codeWindow && !codeWindow.closed) {
+    codeWindow.close();
+  }
+}
 
-            // After fade-out animation, clear the chat
-            setTimeout(() => {
-                chatbox.innerHTML = "";
-                aiResponse.innerHTML = "";
-                chatbox.classList.remove("fade-out");
-                aiResponse.classList.remove("fade-out");
+let recognition;
+if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SpeechRecognition();
+  recognition.lang = 'en-US';
 
-                // Optional message after reset
-                const resetMsg = document.createElement("div");
-                resetMsg.className = "system-msg";
-                resetMsg.textContent = "Chat cleared. Ready for a new question!";
-                chatbox.appendChild(resetMsg);
+  recognition.onstart = () => voiceBtn.classList.add('active');
+  recognition.onend = () => voiceBtn.classList.remove('active');
 
-                setTimeout(() => resetMsg.remove(), 2000);
-            }, 500); // Matches the 0.5s transition
-        });
-    });
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    input.value = transcript;
+  };
 
-
-    function saveChatToHistory(question, answer) {
-        const historyList = document.getElementById("historyList");
-    
-        const listItem = document.createElement("li");
-        listItem.className = "history-item";
-    
-        // Display both question and answer
-        listItem.innerHTML = `
-            <strong>Q:</strong> ${question}<br>
-            <strong>A:</strong> ${answer}
-        `;
-    
-        listItem.addEventListener("click", () => {
-            questionInput.value = question;
-            document.getElementById("ai-response").innerHTML = answer;
-        });
-    
-        historyList.prepend(listItem);
-    
-        // Save to localStorage
-        const saved = JSON.parse(localStorage.getItem("chatHistory")) || [];
-        saved.unshift({ question, answer });
-        localStorage.setItem("chatHistory", JSON.stringify(saved));
-    }
-    
-
-    function loadChatHistory() {
-        const saved = JSON.parse(localStorage.getItem("chatHistory")) || [];
-        saved.forEach(({ question, answer }) => {
-            saveChatToHistory(question, answer);
-        });
-    }
-    document.addEventListener("DOMContentLoaded", () => {
-        // existing code...
-    
-        loadChatHistory(); // ✅ load history on page load
-    });
-
-    document.getElementById("clearHistoryBtn").addEventListener("click", () => {
-        if (confirm("Are you sure you want to clear all chat history?")) {
-            localStorage.removeItem("chatHistory");
-            document.getElementById("historyList").innerHTML = "";
-        }
-    });
-    
-//HOME BUTTON 
-    document.getElementById("homeBtn").addEventListener("click", () => {
-        window.location.href = "Index.html"; // Set the target HTML page
-    });
+  voiceBtn.addEventListener("click", () => recognition.start());
+} else {
+  alert("Speech recognition not supported in your browser.");
+  voiceBtn.disabled = true;
+}

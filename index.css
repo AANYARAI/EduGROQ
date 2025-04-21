@@ -1,831 +1,350 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #000428, #004e92);
+  color: #fff;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.text-content h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.title-main {
+
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #00ffd5;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+.highlight {
+  color: #00ffcc;
+  font-weight: bold;
+}
+
+.highlight2 {
+  color: #00d2ff;
+  font-weight: bold;
+}
+
+.lists {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 1.5rem;
+  gap: 1.5rem;
+  opacity: 0;
+  animation: slideInLeft 1s ease forwards;
+  animation-delay: 0.5s;
+}
+
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-50px);
+    opacity: 0;
   }
-  
-  body {
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(to right, #000428, #004e92);
-    color: #fff;
-    line-height: 1.6;
-    overflow-x: hidden;
+  to {
+    transform: translateX(0);
+    opacity: 1;
   }
-  
+}
+
+.features, .benefits {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem 1.5rem;
+  border-left: 4px solid #00ffd5;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+}
+
+
+.features h3,
+.benefits h3 {
+  color: #00f7ff;
+  margin-bottom: 0.5rem;
+}
+
+.features ul,
+.benefits ul {
+  list-style-type: square;
+  padding-left: 1.5rem;
+  color: #d8f9ff;
+  text-align: left;
+}
+
+.cta-button {
+  display: inline-block;
+  margin-top: 2.5rem;
+  padding: 0.9rem 2.2rem;
+  background: linear-gradient(to right, #00ffbd, #00d1ff);
+  color: #000;
+  font-weight: bold;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 12px #00ffd5;
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(rgba(10, 10, 10, 0.6), rgba(10, 10, 10, 0.6)),
+              url('Image.png') no-repeat center center fixed;
+  background-size: cover;
+  background-attachment: fixed;
+  color: #fff;
+}
+
+
+
+/* === IMAGE CONTENT === */
+.image-content {
+  right: 50px;
+  position: relative;
+  max-width: 100%; /* Make sure the image fits within the container */
+  margin-top: 10rem; /* Spacing below image */
+}
+
+.image-content img {
+  width: 100%;  /* Let the image take up full width of container */
+  height: auto; /* Maintain the aspect ratio */
+  border-radius: 20px;  /* Optional: rounded corners */
+  background: linear-gradient(to right, #00ffbd, #00d1ff);  /* Optional: add a background gradient effect */
+  padding: 5px;  /* Optional: adds a glow border effect */
+  box-shadow: 0 0 15px rgba(0, 255, 213, 0.6);  /* Optional: glow effect */
+  transition: all 0.3s ease;  /* Transition on hover */
+}
+
+.image-content img:hover {
+  transform: scale(1.05);  /* Slightly zoom in on hover */
+  box-shadow: 0 0 25px rgba(0, 255, 213, 0.8); /* Stronger glow effect */
+}
+
+/* === IMAGE OVERLAY === */
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.image-content:hover .image-overlay {
+  display: flex;
+}
+
+.overlay-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+
+
+.bottom-nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #000000e8;
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem 0;
+  font-size: 1rem;
+  border-top: 1px solid #333;
+  z-index: 10;
+}
+
+.bottom-nav a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.bottom-nav a:hover {
+  color: #00ffd5;
+}
+
+@media(min-width: 768px) {
   .hero {
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: center;
-    padding: 2rem;
-    min-height: 100vh;
-    text-align: center;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+    padding: 3rem 5rem;
   }
-  
+
+  .text-content {
+    flex: 1;
+    padding-right: 2rem;
+  }
+
   .text-content h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+    font-size: 2.8rem;
   }
-  
-  .title-main {
-  
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #00ffd5;
+
+  .image-content {
+    flex: 1;
   }
-  
-  .subtitle {
-    font-size: 1.2rem;
-    margin-top: 0.5rem;
-  }
-  
-  .highlight {
-    color: #00ffcc;
-    font-weight: bold;
-  }
-  
-  .highlight2 {
-    color: #00d2ff;
-    font-weight: bold;
-  }
-  
-  .lists {
-    display: flex;
+}
+
+
+/* NAVBAR BASE */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  z-index: 999;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-family: 'Great Vibes', cursive; /* or your chosen calligraphic font */
+  font-size: 2rem; /* adjust as needed */
+  font-weight: 400; /* most script fonts use a single weight */
+  letter-spacing: 0.5px; /* slight spacing can improve readability */
+  line-height: 1.2; /* keeps things tight but not cramped */
+  color: #fdfbfb; /* dark text works best unless you're styling it fancy */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05); /* subtle polish */
+}
+
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+
+/* LINKS */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links li a::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  left: 0;
+  bottom: -4px;
+  background-color: #00c6ff;
+  transition: width 0.3s ease;
+}
+
+.nav-links li a:hover {
+  color: #00c6ff;
+}
+
+.nav-links li a:hover::after {
+  width: 100%;
+}
+
+/* MOBILE MENU TOGGLE */
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .nav-links {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
     flex-direction: column;
     align-items: flex-start;
-    margin-top: 1.5rem;
-    gap: 1.5rem;
-    opacity: 0;
-    animation: slideInLeft 1s ease forwards;
-    animation-delay: 0.5s;
-  }
-  
-  
-  @keyframes slideInLeft {
-    from {
-      transform: translateX(-50px);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-  
-  .features, .benefits {
-    background: rgba(0, 0, 0, 0.3);
-    padding: 1rem 1.5rem;
-    border-left: 4px solid #00ffd5;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 500px;
-  }
-  
-  
-  .features h3,
-  .benefits h3 {
-    color: #00f7ff;
-    margin-bottom: 0.5rem;
-  }
-  
-  .features ul,
-  .benefits ul {
-    list-style-type: square;
-    padding-left: 1.5rem;
-    color: #d8f9ff;
-    text-align: left;
-  }
-  
-  .cta-button {
-    display: inline-block;
-    margin-top: 2.5rem;
-    padding: 0.9rem 2.2rem;
-    background: linear-gradient(to right, #00ffbd, #00d1ff);
-    color: #000;
-    font-weight: bold;
-    border-radius: 30px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 12px #00ffd5;
-  }
-  
-  .cta-button:hover {
-    transform: scale(1.05);
-  }
-  
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(rgba(10, 10, 10, 0.6), rgba(10, 10, 10, 0.6)),
-                url('Image.png') no-repeat center center fixed;
-    background-size: cover;
-    background-attachment: fixed;
-    color: #fff;
-  }
-  
-  
-  
-  /* === IMAGE CONTENT === */
-  .image-content {
-    right: 50px;
-    position: relative;
-    max-width: 100%; /* Make sure the image fits within the container */
-    margin-top: 10rem; /* Spacing below image */
-  }
-  
-  .image-content img {
-    width: 100%;  /* Let the image take up full width of container */
-    height: auto; /* Maintain the aspect ratio */
-    border-radius: 20px;  /* Optional: rounded corners */
-    background: linear-gradient(to right, #00ffbd, #00d1ff);  /* Optional: add a background gradient effect */
-    padding: 5px;  /* Optional: adds a glow border effect */
-    box-shadow: 0 0 15px rgba(0, 255, 213, 0.6);  /* Optional: glow effect */
-    transition: all 0.3s ease;  /* Transition on hover */
-  }
-  
-  .image-content img:hover {
-    transform: scale(1.05);  /* Slightly zoom in on hover */
-    box-shadow: 0 0 25px rgba(0, 255, 213, 0.8); /* Stronger glow effect */
-  }
-  
-  /* === IMAGE OVERLAY === */
-  .image-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    border-radius: 20px;
-    padding: 20px;
-  }
-  
-  .image-content:hover .image-overlay {
-    display: flex;
-  }
-  
-  .overlay-text {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  
-  
-  .bottom-nav {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: #000000e8;
-    display: flex;
-    justify-content: space-around;
-    padding: 1rem 0;
-    font-size: 1rem;
-    border-top: 1px solid #333;
-    z-index: 10;
-  }
-  
-  .bottom-nav a {
-    color: white;
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  
-  .bottom-nav a:hover {
-    color: #00ffd5;
-  }
-  
-  @media(min-width: 768px) {
-    .hero {
-      flex-direction: row;
-      justify-content: space-between;
-      text-align: left;
-      padding: 3rem 5rem;
-    }
-  
-    .text-content {
-      flex: 1;
-      padding-right: 2rem;
-    }
-  
-    .text-content h1 {
-      font-size: 2.8rem;
-    }
-  
-    .image-content {
-      flex: 1;
-    }
-  }
-  
-  
-  /* NAVBAR BASE */
-  .navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
     padding: 1rem 2rem;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    z-index: 999;
-  }
-  
-  .nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .logo {
-    font-family: 'Great Vibes', cursive; /* or your chosen calligraphic font */
-    font-size: 2rem; /* adjust as needed */
-    font-weight: 400; /* most script fonts use a single weight */
-    letter-spacing: 0.5px; /* slight spacing can improve readability */
-    line-height: 1.2; /* keeps things tight but not cramped */
-    color: #fdfbfb; /* dark text works best unless you're styling it fancy */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05); /* subtle polish */
-  }
-  
-  
-  .logo:hover {
-    transform: scale(1.05);
-  }
-  
-  
-  /* LINKS */
-  .nav-links {
-    display: flex;
-    list-style: none;
-    gap: 2rem;
-  }
-  
-  .nav-links li a {
-    text-decoration: none;
-    color: #ffffff;
-    font-weight: 500;
-    position: relative;
-    transition: color 0.3s ease;
-  }
-  
-  .nav-links li a::after {
-    content: '';
-    position: absolute;
-    width: 0%;
-    height: 2px;
-    left: 0;
-    bottom: -4px;
-    background-color: #00c6ff;
-    transition: width 0.3s ease;
-  }
-  
-  .nav-links li a:hover {
-    color: #00c6ff;
-  }
-  
-  .nav-links li a:hover::after {
-    width: 100%;
-  }
-  
-  /* MOBILE MENU TOGGLE */
-  .menu-toggle {
+    width: 200px;
     display: none;
-    font-size: 1.8rem;
-    background: none;
-    border: none;
-    color: #fff;
-    cursor: pointer;
   }
-  
-  /* RESPONSIVE */
-  @media (max-width: 768px) {
-    .nav-links {
-      position: absolute;
-      top: 70px;
-      right: 0;
-      background: rgba(0, 0, 0, 0.8);
-      flex-direction: column;
-      align-items: flex-start;
-      padding: 1rem 2rem;
-      width: 200px;
-      display: none;
-    }
-  
-    .nav-links.show {
-      display: flex;
-    }
-  
-    .menu-toggle {
-      display: block;
-    }
-  }
-  
-  
-  
-  /* LOGIN MODAL STYLES */
-  .login-modal {
-    display: none;
-    position: fixed;
-    z-index: 2000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.4); /* slightly reduced opacity for blur visibility */
-    backdrop-filter: blur(5px);        /* 🔥 frosted glass effect */
-    -webkit-backdrop-filter: blur(5px); /* Safari support */
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* Glassy card style */
-  .glassy-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 20px;
-    padding: 2.5rem;
-    box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
-    color: #fff;
-    text-align: center;
-    animation: fadeInPop 0.4s ease;
-  }
-  
-  /* Welcome text */
-  .login-welcome {
-    margin-bottom: 2rem;
-    font-size: 2.5rem;
-    color: #f0f0f0;
-    font-weight: 600;
-    letter-spacing: 3px;
-    font-family: 'Great Vibes', sans-serif ;
-  }
-  
-  .login-content label {
-    font-family: 'Lora', serif;
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: #f1f1f1;
-    margin-bottom: 0.4rem;
-    text-align: left;
-    letter-spacing: 0.5px;
-  }
-  
-  .login-content label:hover {
-    color: #00c6ff; /* Color change on hover */
-    transform: translateY(-2px); /* Slight hover animation */
-    transition: all 0.3s ease;
-  }
-  
-  
-  /* Inputs */
-  .login-content input {
-    width: 100%;
-    padding: 0.8rem;
-    margin: 0.7rem 0 3rem;
-    border: none;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.15);
-    color: #fff;
-    outline: none;
-    font-size: 1rem;
-    font-family:'Lora',serif;
-    transition: 0.3s ease;
-  }
-  
-  
-  
-  .login-content input:focus {
-    background: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 0 10px rgba(0,255,255,0.3);
-  }
-  
-  /* Submit Button */
-  .login-submit {
-    width: 100%;
-    padding: 0.8rem;
-    background: linear-gradient(135deg, #00c6ff, #0072ff);
-    border: none;
-    border-radius: 10px;
-    color: white;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 198, 255, 0.4);
-    font-family: 'Lora', serif;
-    transition: all 0.3s ease;
-  }
-  
-  .login-submit:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 198, 255, 0.5);
-  }
-  
-  /* Close Button */
-  .close-btn {
-    position: absolute;
-    top: 1rem;
-    right: 1.5rem;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #fff;
-    transition: 0.2s ease;
-  }
-  
-  .close-btn:hover {
-    transform: scale(1.2);
-    color: #00c6ff;
-  }
-  
-  /* Animation */
-  @keyframes fadeInPop {
-    0% {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-  
-  
-  /* Pricing Modal Styles */
-  .pricing-modal {
-    display: none;
-    position: fixed;
-    z-index: 1001;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    backdrop-filter: blur(5px);
-    background: rgba(0, 0, 0, 0.4);
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .pricing-content {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(12px);
-    border-radius: 16px;
-    padding: 30px;
-    width: 80%;
-    max-width: 800px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    color: white;
-    animation: fadeIn 0.4s ease;
-    text-align: center;
-  }
-  
-  .pricing-content h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .pricing-cards {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  
-  .pricing-cards .card {
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(8px);
-    border-radius: 12px;
-    padding: 20px;
-    width: 220px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    font-family: 'Poppins', sans-serif;
-    transition: transform 0.3s ease;
-  }
-  
-  .pricing-cards .card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .pricing-cards .card h3 {
-    margin-bottom: 0.5rem;
-    font-size: 1.4rem;
-    font-weight: 500;
-  }
-  
-  .pricing-cards .card p {
-    font-size: 1.1rem;
-    color: #fff;
-    margin-bottom: 1rem;
-  }
-  
-  .pricing-cards .card ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .pricing-cards .card ul li {
-    margin: 0.4rem 0;
-    font-size: 0.95rem;
-  }
-  
-  .close-btn {
-    position: absolute;
-    right: 25px;
-    top: 20px;
-    font-size: 24px;
-    color: white;
-    cursor: pointer;
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
- 
 
-  
-  /* About Modal */
-  .about-modal {
-    display: none;
-    position: fixed;
-    z-index: 1001;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    backdrop-filter: blur(6px);
-    background: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .about-content {
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    border-radius: 16px;
-    padding: 30px;
-    width: 80%;
-    max-width: 700px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-    color: white;
-    font-family: 'Lora', serif;
-    animation: fadeIn 0.4s ease;
-    text-align: center;
-  }
-  
-  .about-content h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-  
-  .about-content p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-  }
-  
-  .about-modal .close-btn {
-    position: absolute;
-    right: 25px;
-    top: 20px;
-    font-size: 24px;
-    color: white;
-    cursor: pointer;
-  }
-  
-  
-  
-  /* Ask GROQ Button */
-  .ask-groq {
-    position: fixed;
-    bottom: 60px;
-    right: 60px;
-    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient background */
-    color: white;
-    font-size: 18px;
-    padding: 16px 24px;
-    border-radius: 50px; /* Rounded corners */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Elegant font */
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15); /* Subtle shadow for 3D effect */
-    z-index: 999;
-    text-align: center;
-    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+  .nav-links.show {
     display: flex;
-    align-items: center;
-    justify-content: center;
   }
-  
-  /* Hover effect */
-  .ask-groq:hover {
-    transform: scale(1.1); /* Slightly increase size */
-    background: linear-gradient(135deg, #2575fc, #6a11cb); /* Reverse gradient on hover */
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25); /* Larger shadow */
+
+  .menu-toggle {
+    display: block;
   }
-  
-  /* Hover animation effect */
-  .ask-groq:focus {
-    outline: none; /* Remove outline on focus */
-    background: linear-gradient(135deg, #2575fc, #6a11cb);
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25); /* Focus glow effect */
-  }
-  
-  /* Tooltip text (optional) */
-  .ask-groq::after {
-    content: "Click to ask GROQ your question!";
-    position: absolute;
-    top: -30px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 8px;
-    font-size: 12px;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease;
-  }
-  
-  .ask-groq:hover::after {
-    opacity: 1;
-    visibility: visible;
-  }
-  .ask-groq1 {
-    position: fixed;
-    top: 200px;
-    right: 60px;
-    background: linear-gradient(135deg,  #00ffbd, #00d1ff); /* Gradient background */
-    color: rgb(8, 8, 8);
-    font-size: 18px;
-    padding: 16px 24px;
-    border-radius: 50px; /* Rounded corners */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Elegant font */
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15); /* Subtle shadow for 3D effect */
-    z-index: 999;
-    text-align: center;
-    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Hover effect */
-  .ask-groq1:hover {
-    transform: scale(1.1); /* Slightly increase size */
-    background: linear-gradient(135deg, #2575fc, #6a11cb); /* Reverse gradient on hover */
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25); /* Larger shadow */
-  }
-  
-  /* Hover animation effect */
-  .ask-groq1:focus {
-    outline: none; /* Remove outline on focus */
-    background: linear-gradient(135deg, #2575fc, #6a11cb);
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25); 
-  }
-  
-  /* Tooltip text (optional) */
-  .ask-groq1::after {
-    content: "Click to ask GROQ your question!";
-    position: absolute;
-    top: -30px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 8px;
-    font-size: 12px;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease;
-  }
-  
-  .ask-groq1:hover::after {
-    opacity: 1;
-    visibility: visible;
-  }
-   
-  
-  /* Vertical Social Sidebar */
-  .social-sidebar {
-    position: fixed;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    z-index: 999;
-  }
-  
-  .social-item {
-    background-color: rgba(20, 20, 20, 0.85);
-    color: white;
-    margin: 6px 0;
-    padding: 12px 12px;
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    text-decoration: none;
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    align-items: center;
-    transition: all 0.3s ease;
-    overflow: hidden;
-    width: 48px; /* initial width */
-  }
-  
-  .social-item .label {
-    white-space: nowrap;
-    margin-left: 10px;
-    opacity: 0;
-    transition: opacity 0.3s ease, margin-left 0.3s ease;
-  }
-  
-  .social-item:hover {
-    width: 150px;
-    background-color: #333;
-  }
-  
-  .social-item:hover .label {
-    opacity: 1;
-    margin-left: 12px;
-  }
-  
-  /* Icons styling */
-  .icon {
-    font-size: 18px;
-  }
-  
-  /* Optional background color tweaks */
-  .facebook:hover { background-color: #3b5998; }
-  .twitter:hover { background-color: #1da1f2; }
-  .instagram:hover { background-color: #e1306c; }
-  .linkedin:hover { background-color: #0077b5; }
-.signup-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.7);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 2rem;
-    font-size: 2.5rem;
-    color:linear-gradient(135deg, #00c6ff, #0072ff);
-    font-weight: 600;
-    letter-spacing: 3px;
-    font-family: 'Great Vibes', sans-serif ;
 }
-.signup-content {
-    background: #1b1f36;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 0 20px #414041;
-    width: 700px;
-    color: rgb(11, 11, 11);
+
+
+
+/* LOGIN MODAL STYLES */
+.login-modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4); /* slightly reduced opacity for blur visibility */
+  backdrop-filter: blur(5px);        /* 🔥 frosted glass effect */
+  -webkit-backdrop-filter: blur(5px); /* Safari support */
+  justify-content: center;
+  align-items: center;
 }
-.signup-content h2 {
-    color:linear-gradient(135deg, #00c6ff, #0072ff);
-    margin-bottom: 1rem;
-}
-.signup-content input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 1rem;
-    border: none;
-    border-radius: 5px;
-}
-.signup-content button {
-    width: 100%;
-    padding: 10px;
-    background:linear-gradient(135deg, #00c6ff, #0072ff);
-    border: none;
-    border-radius: 5px;
-    color: linear-gradient(135deg, #00c6ff, #0072ff);
-    font-weight: bold;
-    cursor: pointer;
-}
-.signup-content button:hover {
-    background: linear-gradient(135deg, #00c6ff, #0072ff);
-}
-.close-signup {
-    float: right;
-    font-size: 2.3rem;
-    cursor: pointer;
-}
+
+/* Glassy card style */
 .glassy-card {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px);
@@ -833,8 +352,488 @@
   border-radius: 20px;
   padding: 2.5rem;
   box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
-  color: #e1dcdc;
+  color: #fff;
   text-align: center;
   animation: fadeInPop 0.4s ease;
 }
 
+/* Welcome text */
+.login-welcome {
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  color: #f0f0f0;
+  font-weight: 600;
+  letter-spacing: 3px;
+  font-family: 'Great Vibes', sans-serif ;
+}
+
+.login-content label {
+  font-family: 'Lora', serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #f1f1f1;
+  margin-bottom: 0.4rem;
+  text-align: left;
+  letter-spacing: 0.5px;
+}
+
+.login-content label:hover {
+  color: #00c6ff; /* Color change on hover */
+  transform: translateY(-2px); /* Slight hover animation */
+  transition: all 0.3s ease;
+}
+
+
+/* Inputs */
+.login-content input {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 0.7rem 0 3rem;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  outline: none;
+  font-size: 1rem;
+  font-family:'Lora',serif;
+  transition: 0.3s ease;
+}
+
+
+
+.login-content input:focus {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 10px rgba(0,255,255,0.3);
+}
+
+/* Submit Button */
+.login-submit {
+  width: 100%;
+  padding: 0.8rem;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 198, 255, 0.4);
+  font-family: 'Lora', serif;
+  transition: all 0.3s ease;
+}
+
+.login-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 198, 255, 0.5);
+}
+
+/* Close Button */
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #fff;
+  transition: 0.2s ease;
+}
+
+.close-btn:hover {
+  transform: scale(1.2);
+  color: #00c6ff;
+}
+
+/* Animation */
+@keyframes fadeInPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* Pricing Modal Styles */
+.pricing-modal {
+  display: none;
+  position: fixed;
+  z-index: 1001;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  background: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  align-items: center;
+}
+
+.pricing-content {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 30px;
+  width: 80%;
+  max-width: 800px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  color: white;
+  animation: fadeIn 0.4s ease;
+  text-align: center;
+}
+
+.pricing-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.pricing-cards {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.pricing-cards .card {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 20px;
+  width: 220px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-family: 'Poppins', sans-serif;
+  transition: transform 0.3s ease;
+}
+
+.pricing-cards .card:hover {
+  transform: translateY(-5px);
+}
+
+.pricing-cards .card h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.pricing-cards .card p {
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.pricing-cards .card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.pricing-cards .card ul li {
+  margin: 0.4rem 0;
+  font-size: 0.95rem;
+}
+
+.close-btn {
+  position: absolute;
+  right: 25px;
+  top: 20px;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+/* About Modal */
+.about-modal {
+  display: none;
+  position: fixed;
+  z-index: 1001;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.about-content {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 30px;
+  width: 80%;
+  max-width: 700px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  color: white;
+  font-family: 'Lora', serif;
+  animation: fadeIn 0.4s ease;
+  text-align: center;
+}
+
+.about-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.about-content p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.about-modal .close-btn {
+  position: absolute;
+  right: 25px;
+  top: 20px;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+
+
+/* Ask GROQ Button */
+.ask-groq {
+  position: fixed;
+  bottom: 60px;
+  right: 60px;
+  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient background */
+  color: white;
+  font-size: 18px;
+  padding: 16px 24px;
+  border-radius: 50px; /* Rounded corners */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Elegant font */
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15); /* Subtle shadow for 3D effect */
+  z-index: 999;
+  text-align: center;
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hover effect */
+.ask-groq:hover {
+  transform: scale(1.1); /* Slightly increase size */
+  background: linear-gradient(135deg, #2575fc, #6a11cb); /* Reverse gradient on hover */
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25); /* Larger shadow */
+}
+
+/* Hover animation effect */
+.ask-groq:focus {
+  outline: none; /* Remove outline on focus */
+  background: linear-gradient(135deg, #2575fc, #6a11cb);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25); /* Focus glow effect */
+}
+
+/* Tooltip text (optional) */
+.ask-groq::after {
+  content: "Click to ask GROQ your question!";
+  position: absolute;
+  top: -30px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.ask-groq:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+.ask-groq1 {
+  position: fixed;
+  top: 200px;
+  right: 60px;
+  background: linear-gradient(135deg,  #00ffbd, #00d1ff); /* Gradient background */
+  color: rgb(8, 8, 8);
+  font-size: 18px;
+  padding: 16px 24px;
+  border-radius: 50px; /* Rounded corners */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Elegant font */
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15); /* Subtle shadow for 3D effect */
+  z-index: 999;
+  text-align: center;
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hover effect */
+.ask-groq1:hover {
+  transform: scale(1.1); /* Slightly increase size */
+  background: linear-gradient(135deg, #2575fc, #6a11cb); /* Reverse gradient on hover */
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25); /* Larger shadow */
+}
+
+/* Hover animation effect */
+.ask-groq1:focus {
+  outline: none; /* Remove outline on focus */
+  background: linear-gradient(135deg, #2575fc, #6a11cb);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25); 
+}
+
+/* Tooltip text (optional) */
+.ask-groq1::after {
+  content: "Click to ask GROQ your question!";
+  position: absolute;
+  top: -30px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.ask-groq1:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+ 
+
+/* Vertical Social Sidebar */
+.social-sidebar {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
+}
+
+.social-item {
+  background-color: rgba(20, 20, 20, 0.85);
+  color: white;
+  margin: 6px 0;
+  padding: 12px 12px;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  width: 48px; /* initial width */
+}
+
+.social-item .label {
+  white-space: nowrap;
+  margin-left: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease, margin-left 0.3s ease;
+}
+
+.social-item:hover {
+  width: 150px;
+  background-color: #333;
+}
+
+.social-item:hover .label {
+  opacity: 1;
+  margin-left: 12px;
+}
+
+/* Icons styling */
+.icon {
+  font-size: 18px;
+}
+
+/* Optional background color tweaks */
+.facebook:hover { background-color: #3b5998; }
+.twitter:hover { background-color: #1da1f2; }
+.instagram:hover { background-color: #e1306c; }
+.linkedin:hover { background-color: #0077b5; }
+.signup-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  color:linear-gradient(135deg, #00c6ff, #0072ff);
+  font-weight: 600;
+  letter-spacing: 3px;
+  font-family: 'Great Vibes', sans-serif ;
+}
+.signup-content {
+  background: #1b1f36;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #414041;
+  width: 700px;
+  color: rgb(11, 11, 11);
+}
+.signup-content h2 {
+  color:linear-gradient(135deg, #00c6ff, #0072ff);
+  margin-bottom: 1rem;
+}
+.signup-content input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 5px;
+}
+.signup-content button {
+  width: 100%;
+  padding: 10px;
+  background:linear-gradient(135deg, #00c6ff, #0072ff);
+  border: none;
+  border-radius: 5px;
+  color: linear-gradient(135deg, #00c6ff, #0072ff);
+  font-weight: bold;
+  cursor: pointer;
+}
+.signup-content button:hover {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+}
+.close-signup {
+  float: right;
+  font-size: 2.3rem;
+  cursor: pointer;
+}
+.glassy-card {
+background: rgba(255, 255, 255, 0.1);
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(20px);
+border-radius: 20px;
+padding: 2.5rem;
+box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
+color: #e1dcdc;
+text-align: center;
+animation: fadeInPop 0.4s ease;
+}
