@@ -244,7 +244,7 @@ body {
 }
 
 .logo {
-  font-family: 'Great Vibes', cursive; /* or your chosen calligraphic font */
+  font-family: 'Courier New', Courier, monospace; /* or your chosen calligraphic font */
   font-size: 2rem; /* adjust as needed */
   font-weight: 400; /* most script fonts use a single weight */
   letter-spacing: 0.5px; /* slight spacing can improve readability */
@@ -364,7 +364,8 @@ body {
   color: #f0f0f0;
   font-weight: 600;
   letter-spacing: 3px;
-  font-family: 'Great Vibes', sans-serif ;
+  /* font-family: 'Great Vibes', sans-serif ; */
+  font-family:Garamond;
 }
 
 .login-content label {
@@ -787,7 +788,7 @@ body {
   color:linear-gradient(135deg, #00c6ff, #0072ff);
   font-weight: 600;
   letter-spacing: 3px;
-  font-family: 'Great Vibes', sans-serif ;
+  font-family:Garamond;
 }
 .signup-content {
   background: #1b1f36;
