@@ -244,12 +244,12 @@ body {
 }
 
 .logo {
-  font-family: 'Courier New', Courier, monospace; /* or your chosen calligraphic font */
-  font-size: 2rem; /* adjust as needed */
-  font-weight: 400; /* most script fonts use a single weight */
-  letter-spacing: 0.5px; /* slight spacing can improve readability */
-  line-height: 1.2; /* keeps things tight but not cramped */
-  color: #fdfbfb; /* dark text works best unless you're styling it fancy */
+  font-family: 'Courier New', Courier, monospace; 
+  font-size: 2rem; 
+  font-weight: 400;
+  letter-spacing: 0.5px; 
+  line-height: 1.2; 
+  color: #fdfbfb; 
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05); /* subtle polish */
 }
 
