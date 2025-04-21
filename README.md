@@ -13,7 +13,7 @@ To build a highly responsive, visually appealing, and fully functional AI tutori
 
 ## 🚀 Live Demo
 
-🔗 [Visit the Website](edu-groq.vercel.app)  
+🔗 [Visit the Website](https://edu-groq.vercel.app)  
 *(Replace with your live deployment URL)*
 
 ---
