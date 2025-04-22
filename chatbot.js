@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("homeBtn").addEventListener("click", () => {
-    window.location.href = "Index.html";
+    window.location.href = "index.html";
   });
   document.getElementById("FeatureBtn").addEventListener("click", () => {
     window.location.href = "features.html";
