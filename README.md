@@ -15,7 +15,9 @@ Coding Monger's
 
 Team Members:
 [Aadarsh0912](https://github.com/Aadarsh0912) | Homepage  , Ask Groq , CodeBuddy , responsiive , SignUp 
+
 [AANYARAI](https://github.com/AANYARAI)  | Feature Page ,Ask Your Doubt (Image/Video Upload),Smart Summary Generator, Personalized Suggestions
+
 [PriyalPatel30](https://github.com/PriyalPatel30) | Layout(OF Features) , linking,collaboration ,Multilingual page
 Your Approach:
 Why you chose this problem
