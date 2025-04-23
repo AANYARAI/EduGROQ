@@ -101,6 +101,16 @@ npm install -g live-server
 live-server
 
 ---
+🧬 Future Scope
+List improvements, extensions, or follow-up features:
+
+📈 More integrations
+🌐 Localization / broader accessibility
+
+📎 Resources / Credits
+APIs used
+Open source libraries or tools referenced
+Acknowledgements
 
 📄 License
 This project is licensed under the MIT License.
@@ -112,4 +122,3 @@ Feel free to use and modify it for personal, educational, or experimental projec
 “Education is not the filling of a pail, but the lighting of a fire.” — William Butler Yeats
 
 Thank you for checking out EduGROQ. We hope it makes learning simpler, faster, and more fun for everyone! 🚀
-
